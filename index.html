@@ -1,0 +1,1547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Samat Imanalin — UX Researcher & Game Designer</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:   #1E2D3D;
+    --blue:   #2E6DA4;
+    --sky:    #A8C4DC;
+    --light:  #EBF4FF;
+    --cream:  #F8F7F4;
+    --gray:   #6B7280;
+    --mid:    #374151;
+    --white:  #FFFFFF;
+    --rule:   #D0DCE8;
+    --radius: 4px;
+    --font-display: 'DM Serif Display', Georgia, serif;
+    --font-body:    'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--cream);
+    color: var(--mid);
+    line-height: 1.65;
+    font-size: 16px;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 60px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-name {
+    font-family: var(--font-display);
+    color: var(--white);
+    font-size: 1.05rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    align-items: center;
+  }
+
+  .nav-links a {
+    color: var(--sky);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.02em;
+  }
+
+  .nav-links a:hover,
+  .nav-links a.active {
+    background: rgba(168,196,220,0.15);
+    color: var(--white);
+  }
+
+  .nav-links .nav-cta {
+    background: var(--blue);
+    color: var(--white);
+    margin-left: 8px;
+  }
+  .nav-links .nav-cta:hover { background: #2560912; filter: brightness(1.1); }
+
+  /* ── NAV DROPDOWN ── */
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--sky);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 6px 14px;
+    border-radius: var(--radius);
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .nav-dropdown-toggle:hover,
+  .nav-dropdown-toggle.active {
+    background: rgba(168,196,220,0.15);
+    color: var(--white);
+  }
+
+  .nav-dropdown-toggle svg {
+    transition: transform 0.2s;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-toggle svg {
+    transform: rotate(180deg);
+  }
+
+  .nav-dropdown-menu {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    background: var(--navy);
+    border: 1px solid rgba(168,196,220,0.2);
+    border-radius: var(--radius);
+    min-width: 180px;
+    padding: 6px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+    z-index: 200;
+  }
+
+  .nav-dropdown:hover .nav-dropdown-menu {
+    display: block;
+  }
+
+  .nav-dropdown-menu a {
+    display: block;
+    color: var(--sky);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    padding: 8px 14px;
+    border-radius: var(--radius);
+    transition: background 0.15s, color 0.15s;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+
+  .nav-dropdown-menu a:hover,
+  .nav-dropdown-menu a.active {
+    background: rgba(168,196,220,0.15);
+    color: var(--white);
+  }
+
+  /* ── PAGES ── */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--navy);
+    padding: 80px 48px 72px;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 48px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    color: var(--white);
+    line-height: 1.12;
+    margin-bottom: 20px;
+  }
+
+  .hero-subtitle {
+    color: var(--sky);
+    font-size: 1rem;
+    font-weight: 300;
+    margin-bottom: 32px;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-bio {
+    color: rgba(255,255,255,0.72);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    max-width: 560px;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .meta-card {
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(168,196,220,0.2);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+  }
+
+  .meta-card-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: var(--sky);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .skills-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skill-tag {
+    background: rgba(46,109,164,0.35);
+    color: var(--sky);
+    font-size: 0.78rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+
+  .meta-contact a {
+    display: block;
+    color: rgba(255,255,255,0.65);
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-bottom: 6px;
+    transition: color 0.15s;
+  }
+  .meta-contact a:hover { color: var(--white); }
+
+  /* ── SECTION WRAPPERS ── */
+  .section-wrapper {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 64px 48px;
+  }
+
+  .section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    color: var(--blue);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid var(--rule);
+  }
+
+  /* ── PROJECT CARDS ── */
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+  }
+
+  .project-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.18s, box-shadow 0.18s;
+  }
+  .project-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 32px rgba(30,45,61,0.12);
+  }
+
+  .project-card.featured {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .card-img {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    background: var(--navy);
+  }
+
+  .project-card.featured .card-img {
+    height: 100%;
+    min-height: 260px;
+  }
+
+  .card-body {
+    padding: 28px 32px;
+  }
+
+  .card-type {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+
+  .card-title {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .card-desc {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 20px;
+    line-height: 1.6;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tag {
+    font-size: 0.75rem;
+    padding: 3px 10px;
+    border-radius: 20px;
+    background: var(--light);
+    color: var(--blue);
+    font-weight: 500;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+    border-bottom: 1px solid var(--blue);
+    padding-bottom: 1px;
+  }
+
+  /* ── PAGE HEADER ── */
+  .page-header {
+    background: var(--navy);
+    padding: 56px 48px;
+  }
+
+  .page-header-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--sky);
+    font-size: 0.82rem;
+    font-weight: 500;
+    text-decoration: none;
+    margin-bottom: 24px;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .back-link:hover { color: var(--white); }
+
+  .page-header-type {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 12px;
+  }
+
+  .page-header h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 16px;
+  }
+
+  .page-header-sub {
+    color: rgba(255,255,255,0.6);
+    font-size: 1rem;
+    font-style: italic;
+    font-family: var(--font-display);
+  }
+
+  /* ── META ROW ── */
+  .meta-row {
+    background: #F0F5FA;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .meta-row-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 48px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .meta-item {
+    padding: 24px 0 24px;
+    border-right: 1px solid var(--rule);
+    padding-right: 32px;
+    margin-right: 32px;
+  }
+  .meta-item:last-child { border-right: none; }
+
+  .meta-item-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 6px;
+  }
+
+  .meta-item-value {
+    font-size: 0.9rem;
+    color: var(--navy);
+    font-weight: 500;
+  }
+
+  /* ── CONTENT ── */
+  .content-body {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 56px 48px;
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .content-main h2 {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    color: var(--navy);
+    margin-top: 48px;
+    margin-bottom: 16px;
+  }
+  .content-main h2:first-child { margin-top: 0; }
+
+  .content-main h3 {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-top: 36px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .content-main p {
+    font-size: 0.95rem;
+    color: var(--mid);
+    margin-bottom: 18px;
+    line-height: 1.75;
+  }
+
+  .content-main ul {
+    margin-bottom: 18px;
+    padding-left: 20px;
+  }
+
+  .content-main ul li {
+    font-size: 0.95rem;
+    color: var(--mid);
+    margin-bottom: 8px;
+    line-height: 1.65;
+  }
+
+  .content-sidebar {
+    position: sticky;
+    top: 80px;
+  }
+
+  .sidebar-card {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+
+  .sidebar-card-label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .sidebar-card p,
+  .sidebar-card li {
+    font-size: 0.85rem;
+    color: var(--mid);
+    line-height: 1.6;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-card ul { padding-left: 16px; }
+
+  .sidebar-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--blue);
+    text-decoration: none;
+    margin-bottom: 8px;
+    display: block;
+  }
+  .sidebar-link:hover { text-decoration: underline; }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    border-left: 4px solid var(--blue);
+    background: var(--light);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    padding: 20px 24px;
+    margin: 28px 0;
+  }
+
+  .pull-quote p {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-style: italic;
+    color: var(--navy);
+    margin-bottom: 8px !important;
+    line-height: 1.5;
+  }
+
+  .pull-quote cite {
+    font-size: 0.8rem;
+    color: var(--gray);
+    font-style: normal;
+  }
+
+  /* ── INSIGHT BOXES ── */
+  .insight-box {
+    display: grid;
+    grid-template-columns: 52px 1fr;
+    gap: 0;
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 16px;
+  }
+
+  .insight-number {
+    background: var(--navy);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    color: var(--white);
+  }
+
+  .insight-content {
+    padding: 18px 22px;
+    background: var(--light);
+  }
+
+  .insight-content strong {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--navy);
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .insight-content p {
+    font-size: 0.85rem !important;
+    color: var(--mid) !important;
+    margin-bottom: 0 !important;
+    line-height: 1.6 !important;
+  }
+
+  /* ── IMAGE ── */
+  .content-img {
+    width: 100%;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+    margin: 24px 0;
+    display: block;
+  }
+
+  .img-caption {
+    font-size: 0.78rem;
+    color: var(--gray);
+    margin-top: -16px;
+    margin-bottom: 24px;
+    font-style: italic;
+  }
+
+  /* ── CONTACT ── */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 32px;
+  }
+
+  .contact-item {
+    background: var(--white);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 28px 32px;
+  }
+
+  .contact-item h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+
+  .contact-item p {
+    font-size: 0.9rem;
+    color: var(--gray);
+    margin-bottom: 16px;
+  }
+
+  .contact-item a {
+    font-size: 0.9rem;
+    color: var(--blue);
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .contact-item a:hover { text-decoration: underline; }
+
+  /* ── RULE ── */
+  .rule {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 40px 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy);
+    padding: 32px 48px;
+    text-align: center;
+  }
+
+  footer p {
+    color: rgba(255,255,255,0.35);
+    font-size: 0.8rem;
+  }
+
+  /* ── PHOTO GRID ── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+
+  .photo-grid img {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+    display: block;
+  }
+
+  .photo-grid.three {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .photo-single img {
+    width: 100%;
+    max-height: 400px;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: var(--radius);
+    border: 1px solid var(--rule);
+    display: block;
+    margin: 24px 0;
+  }
+
+  /* ── STAT ROW ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin: 28px 0;
+  }
+
+  .stat-item {
+    background: var(--light);
+    border: 1px solid var(--rule);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    text-align: center;
+  }
+
+  .stat-number {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    color: var(--navy);
+    display: block;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-label {
+    font-size: 0.78rem;
+    color: var(--gray);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; }
+    .hero { grid-template-columns: 1fr; padding: 48px 20px; }
+    .hero-meta { display: none; }
+    .section-wrapper, .content-body, .page-header, .meta-row-inner { padding-left: 20px; padding-right: 20px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .project-card.featured { grid-template-columns: 1fr; }
+    .content-body { grid-template-columns: 1fr; }
+    .meta-row-inner { grid-template-columns: repeat(2, 1fr); }
+    .contact-grid { grid-template-columns: 1fr; }
+    .photo-grid { grid-template-columns: 1fr; }
+    .stat-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-name" href="#" data-page="home">Samat Imanalin</a>
+  <ul class="nav-links">
+    <li><a href="#" data-page="home" id="nav-home" class="active">Home</a></li>
+    <li><a href="#" data-page="research" id="nav-research">Research</a></li>
+    <li><a href="#" data-page="production" id="nav-production">Production</a></li>
+    <li class="nav-dropdown">
+      <span class="nav-dropdown-toggle" id="nav-games">
+        Games
+        <svg width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+      <div class="nav-dropdown-menu">
+        <a href="#" data-page="re2" id="nav-re2">Railway Empire 2</a>
+        <a href="#" data-page="col" id="nav-col">Child of Lothian</a>
+        <a href="#" data-page="osakabe" id="nav-osakabe">Osakabe</a>
+      </div>
+    </li>
+    <li><a href="#" data-page="contact" id="nav-contact" class="nav-cta">Contact</a></li>
+  </ul>
+</nav>
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: HOME
+══════════════════════════════════════════════ -->
+<div id="page-home" class="page active">
+
+  <!-- Hero -->
+  <div style="background: var(--navy);">
+    <div class="hero">
+      <div class="hero-left">
+        <p class="hero-eyebrow">Portfolio — 2025</p>
+        <h1>UX Researcher &amp;<br>Game Designer</h1>
+        <p class="hero-subtitle">Qualitative research · Game design · Production · Breda, Netherlands</p>
+        <p class="hero-bio">I study players to understand what games mean to them — and use those insights to help build better ones. My background spans academic and industry research, technical game design on shipped titles, and community production. Currently available for UX Research and Game Design roles in the Netherlands.</p>
+      </div>
+      <div class="hero-meta">
+        <div class="meta-card">
+          <p class="meta-card-label">Core Skills</p>
+          <div class="skills-grid">
+            <span class="skill-tag">Qualitative research</span>
+            <span class="skill-tag">Semi-structured interviews</span>
+            <span class="skill-tag">Thematic analysis</span>
+            <span class="skill-tag">MaxQDA</span>
+            <span class="skill-tag">UX design</span>
+            <span class="skill-tag">Blueprint (UE4)</span>
+            <span class="skill-tag">Game balancing</span>
+            <span class="skill-tag">QA</span>
+          </div>
+        </div>
+        <div class="meta-card">
+          <p class="meta-card-label">Contact</p>
+          <div class="meta-contact">
+            <a href="/cdn-cgi/l/email-protection#3f56525e515e535651114c115e7f58525e5653115c5052"><span class="__cf_email__" data-cfemail="82ebefe3ece3eeebecacf1ace3c2e5efe3ebeeace1edef">[email&#160;protected]</span></a>
+            <a href="https://linkedin.com/in/samatiman/" target="_blank">linkedin.com/in/samatiman/</a>
+            <a href="#">+316 84934104</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Projects -->
+  <div class="section-wrapper">
+    <p class="section-label">Selected Work</p>
+    <div class="projects-grid">
+
+      <!-- Research — featured -->
+      <div class="project-card featured" data-page="research">
+        <img class="card-img" src="images/hero.jpg" alt="Research" onerror="this.style.background='var(--navy)'">
+        <div class="card-body" style="display:flex;flex-direction:column;justify-content:center;">
+          <p class="card-type">UX Research · Master's Thesis · Published</p>
+          <h2 class="card-title">The Unusual Suspects</h2>
+          <p class="card-desc">A qualitative study examining what gaming means to players aged 50 and older — a demographic that comprises 23% of PC gamers yet is almost entirely absent from industry research and design thinking.</p>
+          <div class="card-tags">
+            <span class="tag">Semi-structured interviews</span>
+            <span class="tag">Thematic analysis</span>
+            <span class="tag">MaxQDA</span>
+            <span class="tag">9 participants</span>
+            <span class="tag">Grounded theory</span>
+          </div>
+          <span class="card-cta">Read case study →</span>
+        </div>
+      </div>
+
+      <!-- RE2 -->
+      <div class="project-card" data-page="re2">
+        <img class="card-img" src="images/re2-hero.jpg" alt="Railway Empire 2" onerror="this.style.background='var(--navy)';this.style.height='220px'">
+        <div class="card-body">
+          <p class="card-type">Game Design · QA · Industry</p>
+          <h2 class="card-title">Railway Empire 2</h2>
+          <p class="card-desc">Shipped AA strategy title. Scenario design, game balancing, QA, and post-release player research across a team of 30.</p>
+          <div class="card-tags">
+            <span class="tag">Game balancing</span>
+            <span class="tag">QA</span>
+            <span class="tag">Player feedback</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Child of Lothian -->
+      <div class="project-card" data-page="col">
+        <img class="card-img" src="images/col-hero.jpg" alt="Child of Lothian" onerror="this.style.background='var(--navy)';this.style.height='220px'">
+        <div class="card-body">
+          <p class="card-type">Technical Game Design · UE4</p>
+          <h2 class="card-title">Child of Lothian</h2>
+          <p class="card-desc">Third-person stealth set in 19th century Edinburgh. Player journal system, level design tools, audio implementation, and player abilities in Unreal Engine 4.</p>
+          <div class="card-tags">
+            <span class="tag">Blueprint scripting</span>
+            <span class="tag">UI/UX</span>
+            <span class="tag">Systems design</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Production -->
+      <div class="project-card" data-page="production">
+        <img class="card-img" src="images/bgc-networking.jpg" alt="Breda Game City" onerror="this.style.background='var(--navy)';this.style.height='220px'">
+        <div class="card-body">
+          <p class="card-type">Production · Community · Operations</p>
+          <h2 class="card-title">Breda Game City</h2>
+          <p class="card-desc">Coordinator for the Breda game development foundation. Monthly event production, industry research, stakeholder outreach, and day-to-day organisational operations.</p>
+          <div class="card-tags">
+            <span class="tag">Event production</span>
+            <span class="tag">Stakeholder management</span>
+            <span class="tag">Research</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: RESEARCH
+══════════════════════════════════════════════ -->
+<div id="page-research" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a class="back-link" data-page="home">← Back to projects</a>
+      <p class="page-header-type">UX Research · Master's Thesis · Breda University of Applied Sciences · 2025</p>
+      <h1>The Unusual Suspects</h1>
+      <p class="page-header-sub">Examining the Meaning of Gaming in the Lives of Older Players</p>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-row-inner">
+      <div class="meta-item">
+        <p class="meta-item-label">Research Type</p>
+        <p class="meta-item-value">Qualitative — Exploratory</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Method</p>
+        <p class="meta-item-value">Semi-structured interviews + online community observation</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Participants</p>
+        <p class="meta-item-value">9 players aged 50+, over 10 weeks</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Tools</p>
+        <p class="meta-item-value">MaxQDA 24 · Thematic analysis · Grounded theory</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <h2>The Question</h2>
+      <p>Older adults make up 11% of the AAA gaming demographic and over 23% of monthly PC players — and that share is growing as populations age. Yet the games industry has historically designed and marketed almost exclusively for younger audiences. Academic research on older players, where it exists at all, tends to focus narrowly on health benefits and casual mobile games.</p>
+      <p>This left a straightforward question largely unanswered: <strong>what do games actually mean to people who have been playing for decades?</strong> What keeps them engaged, and what does that tell us about how games could be designed and marketed differently?</p>
+
+      <h3>Why Qualitative</h3>
+      <p>A survey could tell us what older players do — genres they prefer, how often they play. It cannot tell us why those choices matter to them, or how gaming fits into the texture of their daily lives. I chose semi-structured interviews because the research question was exploratory: I needed to follow participants where they led, not constrain them to predefined categories.</p>
+      <p>Participants were recruited primarily through the Old Timers Guild — one of the largest online gaming communities specifically for 50+ players — using snowball sampling to reach a diverse range of play styles and backgrounds. Interviews were conducted over ten weeks via Discord, Zoom, and Teams, transcribed, anonymised, and analysed iteratively in MaxQDA using inductive coding grounded in grounded theory principles. Each round of analysis informed the direction of subsequent interviews.</p>
+
+      <h3>Key Findings</h3>
+
+      <div class="insight-box">
+        <div class="insight-number">1</div>
+        <div class="insight-content">
+          <strong>Socialisation is the dominant source of meaning</strong>
+          <p>Across nearly every participant, gaming was deeply embedded in their social lives — playing with friends, family members, or structured communities like the OTG. Games were described as a richer way to catch up with people than a phone call, a space where personality facets emerge that aren't visible in everyday life.</p>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-number">2</div>
+        <div class="insight-content">
+          <strong>The "gamer" label is actively rejected</strong>
+          <p>Only one of nine participants self-identified as a gamer. The label was associated with toxic online culture, competitive behaviour, and a political dimension most participants wanted no part of — yet these same participants played regularly and invested deeply in the medium.</p>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-number">3</div>
+        <div class="insight-content">
+          <strong>Eudaimonic play over hedonic play</strong>
+          <p>Older players described a clear shift away from competitive, high-stakes gameplay toward mastery, strategy, storytelling, and cooperation. They were not playing to win; they were playing to experience something meaningful — consistent with Socioemotional Selectivity Theory's prediction that older adults prioritise emotionally significant, present-oriented goals.</p>
+        </div>
+      </div>
+
+      <div class="insight-box">
+        <div class="insight-number">4</div>
+        <div class="insight-content">
+          <strong>Games create a need for socialisation they don't fulfil</strong>
+          <p>The most unexpected finding: games generate the desire for social connection but lack the infrastructure to support it. Players consistently relied on external tools — Discord, WhatsApp groups — to organise sessions and maintain community. The disappearance of arcades removed a physical social space that was never replaced in the digital era.</p>
+        </div>
+      </div>
+
+      <div class="pull-quote">
+        <p>"The game gives us a forum to talk and have things to talk about, even if we're just talking about what we did during the week."</p>
+        <cite>— Participant 7, on their weekly Tuesday gaming sessions</cite>
+      </div>
+
+      <h3>Implications for Design</h3>
+      <p>If meaning for older players is primarily social and eudaimonic, then features like in-game lobby chat, community tooling, and cooperative play modes are not secondary — they are the product. The current reliance on player-run communities and external software to fill the socialisation gap is fragile, and creates unnecessary friction for a demographic already navigating a fast-moving technology landscape.</p>
+      <p>The study also surfaced a methodological insight: "meaning of games" is too narrow a frame. "Meaning of play" — encompassing the social rituals, routines, and relationships that surround the act of gaming — is more accurate, and more useful as a design brief.</p>
+
+      <div class="pull-quote">
+        <p>"For people at my age or older who are homebound for whatever reason — games give them a horizon to seek. A social life, even if it's online."</p>
+        <cite>— Participant 4</cite>
+      </div>
+
+      <h3>Limitations &amp; What I'd Do Differently</h3>
+      <p>The sample was recruited primarily through the Old Timers Guild, which skews toward socially motivated players — people who had already sought out a community. This may overrepresent socialisation as a source of meaning compared to solo players who never pursued structured communities. A follow-up study would deliberately recruit through solo-focused channels to test whether the social findings hold more broadly.</p>
+      <p>The study was conducted entirely online, which limited observational depth. Ethnographic methods — sitting alongside players during actual sessions — would add behavioural data that interview transcripts alone cannot capture.</p>
+
+    </div>
+
+    <div class="content-sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Links</p>
+        <a class="sidebar-link" href="https://www.researchgate.net/publication/394496142" target="_blank">Full paper on ResearchGate →</a>
+        <a class="sidebar-link" href="https://github.com/SamIman1/Transcripts-from-the-Master-s-research-project" target="_blank">Transcripts &amp; codebook on GitHub →</a>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Research Methods</p>
+        <ul>
+          <li>Semi-structured interviews</li>
+          <li>Snowball sampling</li>
+          <li>Online community observation</li>
+          <li>Inductive coding</li>
+          <li>Thematic analysis</li>
+          <li>Grounded theory iteration</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Theoretical Frameworks</p>
+        <ul>
+          <li>Socioemotional Selectivity Theory</li>
+          <li>Self-Determination Theory</li>
+          <li>Huizinga's theory of play</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Supervisor</p>
+        <p>Prof. Dr. Igor Mayer<br>Prof. Miruna Doicaru<br>Breda University of Applied Sciences</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: RAILWAY EMPIRE 2
+══════════════════════════════════════════════ -->
+<div id="page-re2" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a class="back-link" data-page="home">← Back to projects</a>
+      <p class="page-header-type">Game Design · QA · Industry Internship · Gaming Minds Studios · 2023</p>
+      <h1>Railway Empire 2</h1>
+      <p class="page-header-sub">Strategy-management game set in the golden age of rail transportation</p>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-row-inner">
+      <div class="meta-item">
+        <p class="meta-item-label">Genre</p>
+        <p class="meta-item-value">Strategy, Simulation</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Duration</p>
+        <p class="meta-item-value">February – June 2023</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Team Size</p>
+        <p class="meta-item-value">~30 people</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Primary Role</p>
+        <p class="meta-item-value">QA · Game Design · Balancing</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <h2>Quality Assurance</h2>
+      <p>Over the course of the internship I worked within Gaming Minds Studios' QA pipeline, testing builds throughout development across PC, current-generation and previous-generation consoles. This gave me hands-on experience with professional QA tooling and the analytical skills required to identify and communicate bugs and their root causes.</p>
+      <img class="content-img" src="images/re2-qa1.png" alt="QA work">
+      <img class="content-img" src="images/re2-qa2.png" alt="QA pipeline">
+
+      <p>Toward the end of the internship I took on an additional responsibility: compiling a structured FAQ document after the game's release by analysing recurring issues in post-launch player feedback. This was essentially a player research task — synthesising community feedback at scale into actionable information for the support team. The FAQ was published on Steam and is still live.</p>
+      <img class="content-img" src="images/re2-faq.png" alt="FAQ document">
+
+      <hr class="rule">
+
+      <h2>Scenario Design</h2>
+      <p>Railway Empire 2 ships with 14 gameplay scenarios alongside its 5 main campaigns. Given my interest in systems design, I took ownership of two of them.</p>
+
+      <h3>Sitting on the Fence</h3>
+      <p>The more complex of the two scenarios. I added a strategic dimension to the classic gameplay loop: the player must choose a side in the Franco-Prussian War and use their railway network to support the war effort. Prussia's historical advantage — the speed and logistics of its rail network — is reflected in the scenario's design: some of the tightest objective deadlines in the game.</p>
+      <img class="content-img" src="images/re2-germany.png" alt="Germany scenario">
+      <p>The French side introduces a counterbalancing challenge. France at the time was a highly centralised state, which I reflected through objectives that predominantly require supplying Paris — shifting the core challenge from speed to traffic optimisation.</p>
+      <img class="content-img" src="images/re2-france.png" alt="France scenario">
+      <p>Producing these scenarios required cross-discipline collaboration: I coordinated feedback requests with the narrative designer and several programmers, and maintained updated design documentation throughout to keep the team aligned.</p>
+
+      <hr class="rule">
+
+      <h2>Game Mechanics Balancing</h2>
+
+      <h3>Player Characters</h3>
+      <p>Before starting a game, players choose a character that provides buffs and debuffs intended to encourage different play styles. By the time I arrived, most characters had functionally identical effects — their mechanical distinctions had been lost during production. Together with the narrative designer, I produced a redesign proposal for every character, consulting with programmers and artists to ensure our changes were feasible without significant new work. We presented the proposal to the studio lead and it shipped in the final game.</p>
+      <img class="content-img" src="images/re2-characters.png" alt="Character changes">
+
+      <p>The changes addressed three specific problems: bonuses tied to cut mechanics, bonuses that failed to create meaningfully different play incentives, and characters whose mechanical identity didn't match their narrative archetype.</p>
+
+      <h3>Special Wagons</h3>
+      <p>During QA I discovered it was possible to break the game's economy through Special Wagons — a mechanic that trades locomotive capacity for bonuses. Using them was objectively correct in every situation, which removed meaningful choice.</p>
+      <p>The fix I proposed introduced a cost to Special Wagons, creating a genuine early-game decision between a safer mixed-line strategy and a riskier, potentially higher-return strategy with Special Wagons from the start.</p>
+      <img class="content-img" src="images/re2-wagons.png" alt="Special wagons">
+
+      <h3>Campaign Balancing</h3>
+      <p>Once I had a strong grasp of the game's mechanics and design intent, I contributed to balancing later campaigns and scenarios that hadn't received many iterations. Most changes focused on reducing unintentional tedium caused by interactions between mechanics.</p>
+      <p>For example: in Campaign 1, I proposed removing business ownership from an AI rival, which made the "buy out your competitor" objective excessively tedious. In Campaign 2, I removed the AI's ability to sabotage the player — a drastic change justified by the fact that players had no effective countermeasures against three opponents over a five-hour campaign.</p>
+
+    </div>
+
+    <div class="content-sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Links</p>
+        <a class="sidebar-link" href="https://store.steampowered.com/app/1644320/Railway_Empire_2/" target="_blank">Steam page →</a>
+        <a class="sidebar-link" href="https://steamcommunity.com/app/1644320/discussions/1/6333797956682896643/" target="_blank">Player FAQ (Steam) →</a>
+        <a class="sidebar-link" href="https://62c55267-6b31-44b9-bcf4-0ded8c5d7a12.filesusr.com/ugd/cbad1d_23bcd67cee2f4404a05bc1d1c5fd36c6.pdf" target="_blank">Recommendation letter →</a>
+        <a class="sidebar-link" href="https://62c55267-6b31-44b9-bcf4-0ded8c5d7a12.filesusr.com/ugd/cbad1d_f051a668a2a54c15aa0ac37a0e682106.docx" target="_blank">Character redesign proposal →</a>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Contributions</p>
+        <ul>
+          <li>QA across PC &amp; consoles</li>
+          <li>Post-release player feedback research</li>
+          <li>2 scenario designs (shipped)</li>
+          <li>Player character rebalance (shipped)</li>
+          <li>Special wagons rebalance</li>
+          <li>Campaign &amp; scenario balancing</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Studio</p>
+        <p>Gaming Minds Studios<br>Internship, Feb–Jun 2023<br>Team of ~30</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: CHILD OF LOTHIAN
+══════════════════════════════════════════════ -->
+<div id="page-col" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a class="back-link" data-page="home">← Back to projects</a>
+      <p class="page-header-type">Technical Game Design · UE4 · BUas · 2021–2022</p>
+      <h1>Child of Lothian</h1>
+      <p class="page-header-sub">Third-person stealth set in 19th century Edinburgh</p>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-row-inner">
+      <div class="meta-item">
+        <p class="meta-item-label">Genre</p>
+        <p class="meta-item-value">Third-person stealth</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Duration</p>
+        <p class="meta-item-value">September 2021 – June 2022</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Team Size</p>
+        <p class="meta-item-value">25 people</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Primary Role</p>
+        <p class="meta-item-value">Technical Game Designer</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <h2>Player Journal System</h2>
+      <p>To encourage world exploration, the game uses setting-appropriate collectables with narrative text attached. Players find them scattered through the world; the journal is where they're displayed. I built the entire system from scratch in UE4 Blueprint.</p>
+      <img class="content-img" src="images/col-journal.gif" alt="Player journal">
+      <p>The system is built around two blueprints — a Journal Widget and a Journal Entry. Journal entries pull images and narrative text from each collectable's data asset and translate them into the widget UI. The widget also handles collectable counting for achievements, and displays greyed-out entries for undiscovered items to give players a sense of what remains.</p>
+      <img class="content-img" src="images/col-journal-entry.png" alt="Journal entry blueprint">
+      <img class="content-img" src="images/col-journal-entries.png" alt="Journal entries">
+      <p>One learning from this system: I initially stored item data in Game Instance for easy access, which quickly became bloated as other designers stored their own data there too. In retrospect I'd use a dedicated save game object or data subsystem to keep concerns separated.</p>
+
+      <hr class="rule">
+
+      <h2>Level Design Tools</h2>
+
+      <h3>OpenLock Component</h3>
+      <p>Early in the project I built a reusable component to give level designers a quick, configurable way to create key/lever door puzzles — connecting any activatable object as a "lever" and any item as a "key" that must be neutralised before a door opens.</p>
+      <img class="content-img" src="images/col-openlock.gif" alt="OpenLock component">
+      <img class="content-img" src="images/col-instigator1.png" alt="Blueprint instigator">
+      <p>As development progressed I extended the component with additional functionality requested by the team — including a sound event detectable by NPCs when a door is interacted with, supporting the stealth detection logic.</p>
+
+      <h3>Hittable Signs</h3>
+      <p>Since the sling is one of the player's primary ways of interacting with the world, I created a blueprint that allows environment objects to react naturally to projectile hits — activating physics on collision, then gracefully winding down after a timer.</p>
+      <img class="content-img" src="images/col-signs.gif" alt="Hittable signs">
+      <p>The wind-down animation speed is exposed as a designer-adjustable variable, making it easy for environment artists to tune the feel without touching the Blueprint logic.</p>
+      <img class="content-img" src="images/col-signs2.gif" alt="Sign animation">
+
+    </div>
+
+    <div class="content-sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Links</p>
+        <a class="sidebar-link" href="https://store.steampowered.com/app/1761260/Child_of_Lothian/" target="_blank">Steam page →</a>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Contributions</p>
+        <ul>
+          <li>Player journal UI system</li>
+          <li>OpenLock level design component</li>
+          <li>Hittable environment objects</li>
+          <li>Player abilities</li>
+          <li>Audio implementation (FL Studio + UE4)</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Tools</p>
+        <ul>
+          <li>Unreal Engine 4</li>
+          <li>Blueprint visual scripting</li>
+          <li>FL Studio</li>
+          <li>Perforce</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: OSAKABE
+══════════════════════════════════════════════ -->
+<div id="page-osakabe" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <a class="back-link" data-page="home">← Back to projects</a>
+      <p class="page-header-type">Technical Game Design · Audio Design · UE4 · BUas · 2020–2021</p>
+      <h1>Osakabe</h1>
+      <p class="page-header-sub">First-person horror set in a haunted Japanese castle</p>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-row-inner">
+      <div class="meta-item">
+        <p class="meta-item-label">Genre</p>
+        <p class="meta-item-value">First-person horror</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Duration</p>
+        <p class="meta-item-value">November 2020 – June 2021</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Team Size</p>
+        <p class="meta-item-value">23 people</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Roles</p>
+        <p class="meta-item-value">Technical Design · Audio Design</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <h2>Player Camera &amp; Movement</h2>
+      <p>In a first-person horror, the player camera does more than frame the world — it communicates vulnerability, presence, and physicality. After researching comparable games I settled on two design goals: using subtle camera motion to build a stronger connection between player and avatar, and using camera height and angle to reinforce the feeling of being a small, vulnerable child in an oversized, hostile space.</p>
+      <img class="content-img" src="images/osakabe-camera.png" alt="Camera timeline">
+      <p>Human walking is essentially a series of controlled falls, so I decided that footstep sounds — which feed directly into the NPC detection system — should be handled in the same Blueprint as the camera. I implemented camera position and rotation updates on timelines (one for idle, one for walking/running), with footstep sound events timed to coincide with camera movement for a cohesive sensory result.</p>
+      <img class="content-img" src="images/osakabe-camera2.png" alt="Camera feedback">
+      <img class="content-img" src="images/osakabe-camera3.gif" alt="Camera in game">
+
+      <hr class="rule">
+
+      <h2>Player Abilities</h2>
+
+      <h3>Wind-up Toy</h3>
+      <p>A throwable toy the player can use to distract the enemy. We originally explored a possession mechanic that would let players control the toy and scout the environment from its perspective. In playtesting, this undercut one of our core pillars — we wanted the player to always feel small and vulnerable. Possession made the player feel safer and more powerful, so we cut it in favour of the toy as a simple throwable noisemaker that draws the enemy to its location.</p>
+      <img class="content-img" src="images/osakabe-toy.gif" alt="Wind-up toy">
+
+      <h3>Lantern</h3>
+      <p>A limited-fuel light source that reveals items in darker areas while making the player more detectable to the monster — a direct risk/reward trade-off that reinforces the game's tense resource management.</p>
+
+      <h3>Mirror</h3>
+      <p>Allows the player to stun the monster briefly — but only if both the player and the monster are reflected simultaneously. We removed the ability to rotate the mirror after deciding not to model the player character, which neatly avoided the "player sees themselves" problem while still forcing the player to adopt a vulnerable facing position toward the monster.</p>
+      <img class="content-img" src="images/osakabe-mirror.png" alt="Mirror mechanic">
+
+      <hr class="rule">
+
+      <h2>Gameplay Prototype — Blind Navigation</h2>
+      <p>Early in the project I worked in a strike team to prototype a blind navigation concept: a game character that perceives the world through senses other than sight. The brief limited us to a castle/fortress island setting.</p>
+      <p>My teammates built two core mechanics — fast-decaying echolocation and smell detection. I took ownership of the level: a labyrinth with a central riddle and several levers to find.</p>
+      <img class="content-img" src="images/osakabe-echolocation.gif" alt="Echolocation prototype">
+      <img class="content-img" src="images/osakabe-smell.gif" alt="Smell detection">
+      <p>After testing, I iterated the layout to reduce confusion: adding distinct geometric landmarks in several rooms so players could build a reliable mental map even without visual information. The key insight was that spatial orientation in a blind navigation game depends entirely on memorable landmarks — something we had initially underestimated.</p>
+
+    </div>
+
+    <div class="content-sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Links</p>
+        <a class="sidebar-link" href="https://buas.itch.io/osakabe" target="_blank">Itch.io page →</a>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Contributions</p>
+        <ul>
+          <li>Player camera &amp; movement system</li>
+          <li>Player abilities (toy, lantern, mirror)</li>
+          <li>Blind navigation prototype</li>
+          <li>Audio — ambient system &amp; implementation</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Tools</p>
+        <ul>
+          <li>Unreal Engine 4</li>
+          <li>Blueprint visual scripting</li>
+          <li>FL Studio</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════════════════
+     PAGE: CONTACT
+══════════════════════════════════════════════ -->
+<div id="page-contact" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="page-header-type">Available for work · Netherlands · Orientation year visa</p>
+      <h1>Get in Touch</h1>
+      <p class="page-header-sub">Open to UX Research and Game Design roles in the Netherlands</p>
+    </div>
+  </div>
+
+  <div class="section-wrapper">
+    <p style="max-width:600px;font-size:0.95rem;color:var(--mid);line-height:1.75;margin-bottom:16px;">
+      I'm currently looking for UX Research, Player Research, or Game Design roles in the Netherlands. I hold an orientation year (zoekjaar) visa following the completion of my MSc at Breda University of Applied Sciences.
+    </p>
+    <p style="max-width:600px;font-size:0.95rem;color:var(--mid);line-height:1.75;margin-bottom:40px;">
+      I'm happy to share my full thesis, additional work samples, or a reference from Gaming Minds Studios on request.
+    </p>
+
+    <div class="contact-grid">
+      <div class="contact-item">
+        <h3>Email</h3>
+        <p>Best way to reach me for roles and introductions.</p>
+        <a href="/cdn-cgi/l/email-protection#a2cbcfc3ccc3cecbcc8cd18cc3e2c5cfc3cbce8cc1cdcf"><span class="__cf_email__" data-cfemail="e98084888788858087c79ac788a98e84888085c78a8684">[email&#160;protected]</span></a>
+      </div>
+      <div class="contact-item">
+        <h3>LinkedIn</h3>
+        <p>Professional background and recommendations.</p>
+        <a href="https://linkedin.com/in/samatiman/" target="_blank">linkedin.com/in/samatiman/</a>
+      </div>
+      <div class="contact-item">
+        <h3>Research</h3>
+        <p>Full thesis and anonymised research transcripts.</p>
+        <a href="https://www.researchgate.net/publication/394496142" target="_blank">ResearchGate →</a>
+      </div>
+      <div class="contact-item">
+        <h3>Resume</h3>
+        <p>One-page overview of experience and skills.</p>
+        <a href="https://62c55267-6b31-44b9-bcf4-0ded8c5d7a12.filesusr.com/ugd/cbad1d_d114ec7f1c4046e3b9e8e9722e3f9e0f.pdf" target="_blank">Download PDF →</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════
+     PAGE: PRODUCTION
+══════════════════════════════════════════════ -->
+<div id="page-production" class="page">
+  <div class="page-header" style="padding: 0; overflow: hidden;">
+    <div style="position: relative;">
+      <img src="images/bgc-banner.webp" alt="Breda Game City" style="width:100%; height:220px; object-fit:cover; object-position:center; display:block; filter:brightness(0.75);">
+      <div style="position:absolute; bottom:0; left:0; right:0; padding: 32px 48px; background: linear-gradient(transparent, rgba(30,45,61,0.95));">
+        <p class="page-header-type" style="margin-bottom:8px;">Production · Community · Operations · 2024–Present</p>
+        <h1 style="font-family:var(--font-display); font-size:clamp(1.8rem,3vw,2.6rem); color:var(--white); line-height:1.1; margin:0;">Breda Game City</h1>
+        <p style="color:rgba(255,255,255,0.6); font-size:1rem; font-style:italic; font-family:var(--font-display); margin-top:8px;">Coordinator — supporting and growing the Breda game development ecosystem</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="meta-row">
+    <div class="meta-row-inner">
+      <div class="meta-item">
+        <p class="meta-item-label">Organisation</p>
+        <p class="meta-item-value">Breda Game City Foundation</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Role</p>
+        <p class="meta-item-value">Coordinator</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Duration</p>
+        <p class="meta-item-value">2024 – Present</p>
+      </div>
+      <div class="meta-item">
+        <p class="meta-item-label">Focus</p>
+        <p class="meta-item-value">Events · Research · Operations · Outreach</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="content-main">
+
+      <h2>The Organisation</h2>
+      <p>Breda Game City is a foundation dedicated to supporting and connecting the game development community in the Breda region — one of the most active game dev clusters in the Netherlands, anchored by Breda University of Applied Sciences and a growing number of independent studios. As coordinator, I'm the operational backbone of the foundation: I keep the programmes running, the stakeholders connected, and the community growing.</p>
+
+      <hr class="rule">
+
+      <h2>Breda Game Drinks</h2>
+      <p>Breda Game Drinks is the foundation's flagship monthly networking event, bringing together game developers, students, studios, and industry partners in an informal setting. I took ownership of the full event cycle — from venue coordination and speaker outreach to hosting and post-event follow-up.</p>
+
+      <div class="stat-row">
+        <div class="stat-item">
+          <span class="stat-number">4</span>
+          <span class="stat-label">Editions organised</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">70–80</span>
+          <span class="stat-label">Attendees per event</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">Monthly</span>
+          <span class="stat-label">Cadence</span>
+        </div>
+      </div>
+
+      <div class="photo-single">
+        <img src="images/bgc-bar.jpg" alt="Samat at Breda Game Drinks January edition">
+      </div>
+      <p class="img-caption">January edition — manning the bar at Breda Game Drinks.</p>
+
+      <div class="photo-grid">
+        <img src="images/bgc-crowd.jpg" alt="Attendees watching a presentation at Breda Game Drinks">
+        <img src="images/bgc-networking.jpg" alt="Networking at Breda Game Drinks March edition">
+      </div>
+      <p class="img-caption">March edition — presentations and networking at BUas.</p>
+
+      <hr class="rule">
+
+      <h2>Industry Research & Strategic Reporting</h2>
+      <p>To ground the foundation's programming in actual community needs, I conducted research into the state of game development in the Breda region — mapping the landscape of active studios, identifying the challenges developers face, and surfacing gaps the foundation could address. Findings were compiled into structured reports and presented directly to the board to inform strategic decisions about the foundation's direction and priorities.</p>
+      <p>This work sits at the intersection of my research background and my production role: it required qualitative investigation, stakeholder interviews, and the ability to translate findings into actionable organisational recommendations.</p>
+
+      <hr class="rule">
+
+      <h2>Operations & Coordination</h2>
+
+      <h3>Organisational Infrastructure</h3>
+      <p>Day-to-day I manage the operational fabric of the foundation — board meeting preparation and agenda setting, document management including legal documentation, internal communication workflows, and maintaining the organisational calendar. A small foundation like Breda Game City runs on the quality of its systems, and building those systems from the ground up has been a significant part of the role.</p>
+
+      <h3>External Outreach</h3>
+      <p>I manage the foundation's relationships with external partners — local game studios, educational institutions, and industry organisations. This includes cold outreach to new potential partners, maintaining existing relationships, and representing the foundation at external events. The goal is to keep Breda Game City visible and relevant within the regional and national games ecosystem.</p>
+
+      <h3>Cross-cultural Coordination</h3>
+      <p>The Breda games community is international — students and professionals from across Europe and beyond. Coordinating events and programmes across different cultural expectations and communication styles has been a consistent part of the role, and one that maps directly onto the cross-cultural team coordination experience from my time at Gaming Minds Studios.</p>
+
+    </div>
+
+    <div class="content-sidebar">
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Links</p>
+        <a class="sidebar-link" href="https://bredagamecity.nl" target="_blank">bredagamecity.nl →</a>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Responsibilities</p>
+        <ul>
+          <li>Event production (Breda Game Drinks)</li>
+          <li>Industry research & board reporting</li>
+          <li>Document & legal file management</li>
+          <li>Meeting preparation & agenda setting</li>
+          <li>External partner outreach</li>
+          <li>Internal communications</li>
+          <li>Community programme coordination</li>
+        </ul>
+      </div>
+      <div class="sidebar-card">
+        <p class="sidebar-card-label">Skills Demonstrated</p>
+        <ul>
+          <li>Production & project coordination</li>
+          <li>Stakeholder management</li>
+          <li>Qualitative research</li>
+          <li>Strategic reporting</li>
+          <li>Cross-cultural communication</li>
+          <li>Event logistics</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p>Samat Imanalin · Breda, Netherlands · imanalin.s.a@gmail.com</p>
+</footer>
+
+<script>
+  var gamePages = ['re2', 'col', 'osakabe'];
+
+  function showPage(id) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-links a, .nav-name').forEach(a => a.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    var navEl = document.getElementById('nav-' + id);
+    if (navEl) navEl.classList.add('active');
+    // Highlight Games toggle if a game page is active
+    var gamesToggle = document.getElementById('nav-games');
+    if (gamePages.indexOf(id) !== -1) {
+      gamesToggle.classList.add('active');
+    } else {
+      gamesToggle.classList.remove('active');
+    }
+    window.scrollTo(0, 0);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('[data-page]').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        showPage(this.getAttribute('data-page'));
+      });
+    });
+  });
+</script>
+
+</body>
+</html>

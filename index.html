@@ -276,6 +276,55 @@
     border-bottom: 2px solid var(--rule);
   }
 
+  .card-img-wrap {
+    position: relative;
+    overflow: hidden;
+    height: 220px;
+  }
+
+  .project-card.featured .card-img-wrap {
+    height: 100%;
+    min-height: 260px;
+  }
+
+  .card-img-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: var(--navy);
+    transition: transform 0.3s;
+  }
+
+  .project-card:hover .card-img-wrap img {
+    transform: scale(1.03);
+  }
+
+  .card-img-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 28px 20px 16px;
+    background: linear-gradient(transparent, rgba(30,45,61,0.88));
+  }
+
+  .card-img-overlay-type {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--sky);
+    margin-bottom: 4px;
+  }
+
+  .card-img-overlay-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    color: var(--white);
+    line-height: 1.2;
+  }
+
   /* ── PROJECT CARDS ── */
   .projects-grid {
     display: grid;
@@ -852,10 +901,14 @@
 
       <!-- Research — featured -->
       <div class="project-card featured" data-page="research">
-        <img class="card-img" src="images/research-hero.png" alt="The Unusual Suspects — Master's Thesis" style="object-fit:contain; object-position:center; background:#fff;" onerror="this.onerror=null;this.style.background='var(--navy)'">
+        <div class="card-img-wrap">
+          <img src="images/research-hero.png" alt="The Unusual Suspects" style="object-fit:contain; background:#fff;">
+          <div class="card-img-overlay">
+            <p class="card-img-overlay-type">UX Research · Master's Thesis · Published</p>
+            <p class="card-img-overlay-title">The Unusual Suspects</p>
+          </div>
+        </div>
         <div class="card-body" style="display:flex;flex-direction:column;justify-content:center;">
-          <p class="card-type">UX Research · Master's Thesis · Published</p>
-          <h2 class="card-title">The Unusual Suspects</h2>
           <p class="card-desc">A qualitative study examining what gaming means to players aged 50 and older — a demographic that comprises 23% of PC gamers yet is almost entirely absent from industry research and design thinking.</p>
           <div class="card-tags">
             <span class="tag">Semi-structured interviews</span>
@@ -870,10 +923,13 @@
 
       <!-- RE2 -->
       <div class="project-card" data-page="re2">
-        <img class="card-img" src="images/re2-hero.jpg" alt="Railway Empire 2" onerror="this.onerror=null;this.src='https://static.wixstatic.com/media/cbad1d_1570a6927bed48399d5f8d692bea03b9f000.jpg/v1/fill/w_800,h_450,al_c,q_85/cbad1d_1570a6927bed48399d5f8d692bea03b9f000.jpg'">
+        <div class="card-img-wrap" style="background:linear-gradient(135deg, #1a2a3a 0%, #2a4a6a 100%);">
+          <div class="card-img-overlay" style="background:none; top:0; display:flex; flex-direction:column; justify-content:flex-end; padding:28px 20px 16px;">
+            <p class="card-img-overlay-type">Game Design · QA · Industry</p>
+            <p class="card-img-overlay-title">Railway Empire 2</p>
+          </div>
+        </div>
         <div class="card-body">
-          <p class="card-type">Game Design · QA · Industry</p>
-          <h2 class="card-title">Railway Empire 2</h2>
           <p class="card-desc">Shipped AA strategy title. Scenario design, game balancing, QA, and post-release player research across a team of 30.</p>
           <div class="card-tags">
             <span class="tag">Game balancing</span>
@@ -885,10 +941,13 @@
 
       <!-- Child of Lothian -->
       <div class="project-card" data-page="col">
-        <img class="card-img" src="images/col-hero.jpg" alt="Child of Lothian" onerror="this.onerror=null;this.src='https://static.wixstatic.com/media/cbad1d_f1440703f26b4edcbd2b87c888bbbda7f000.jpg/v1/fill/w_800,h_450,al_c,q_85/cbad1d_f1440703f26b4edcbd2b87c888bbbda7f000.jpg'">
+        <div class="card-img-wrap" style="background:linear-gradient(135deg, #1a2a2a 0%, #1a3a4a 100%);">
+          <div class="card-img-overlay" style="background:none; top:0; display:flex; flex-direction:column; justify-content:flex-end; padding:28px 20px 16px;">
+            <p class="card-img-overlay-type">Technical Game Design · UE4</p>
+            <p class="card-img-overlay-title">Child of Lothian</p>
+          </div>
+        </div>
         <div class="card-body">
-          <p class="card-type">Technical Game Design · UE4</p>
-          <h2 class="card-title">Child of Lothian</h2>
           <p class="card-desc">Third-person stealth set in 19th century Edinburgh. Player journal system, level design tools, audio implementation, and player abilities in Unreal Engine 4.</p>
           <div class="card-tags">
             <span class="tag">Blueprint scripting</span>
@@ -900,15 +959,37 @@
 
       <!-- Production -->
       <div class="project-card" data-page="production">
-        <img class="card-img" src="images/bgc-networking.jpg" alt="Breda Game City" onerror="this.style.background='var(--navy)';this.style.height='220px'">
+        <div class="card-img-wrap">
+          <img src="images/bgc-networking.jpg" alt="Breda Game City">
+          <div class="card-img-overlay">
+            <p class="card-img-overlay-type">Production · Community · Operations</p>
+            <p class="card-img-overlay-title">Breda Game City</p>
+          </div>
+        </div>
         <div class="card-body">
-          <p class="card-type">Production · Community · Operations</p>
-          <h2 class="card-title">Breda Game City</h2>
           <p class="card-desc">Coordinator for the Breda game development foundation. Monthly event production, industry research, stakeholder outreach, and day-to-day organisational operations.</p>
           <div class="card-tags">
             <span class="tag">Event production</span>
             <span class="tag">Stakeholder management</span>
             <span class="tag">Research</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Osakabe -->
+      <div class="project-card" data-page="osakabe">
+        <div class="card-img-wrap" style="background:linear-gradient(135deg, #1a1a2a 0%, #2a1a3a 100%);">
+          <div class="card-img-overlay" style="background:none; top:0; display:flex; flex-direction:column; justify-content:flex-end; padding:28px 20px 16px;">
+            <p class="card-img-overlay-type">Technical Design · Audio · UE4</p>
+            <p class="card-img-overlay-title">Osakabe</p>
+          </div>
+        </div>
+        <div class="card-body">
+          <p class="card-desc">First-person horror set in a haunted Japanese castle. Player camera system, abilities, audio design, and early gameplay prototyping in Unreal Engine 4.</p>
+          <div class="card-tags">
+            <span class="tag">Blueprint scripting</span>
+            <span class="tag">Audio design</span>
+            <span class="tag">Prototyping</span>
           </div>
         </div>
       </div>
@@ -1090,9 +1171,9 @@
 
       <!-- Jump links -->
       <div style="display:flex; gap:12px; flex-wrap:wrap; margin-bottom:32px;">
-        <a href="#re2-scenarios" style="font-size:0.82rem; font-weight:600; color:var(--blue); text-decoration:none; padding:6px 14px; border:1px solid var(--rule); border-radius:20px; background:var(--white); transition:background 0.15s;" onmouseover="this.style.background='var(--light)'" onmouseout="this.style.background='var(--white)'">Scenario Design</a>
-        <a href="#re2-balancing" style="font-size:0.82rem; font-weight:600; color:var(--blue); text-decoration:none; padding:6px 14px; border:1px solid var(--rule); border-radius:20px; background:var(--white); transition:background 0.15s;" onmouseover="this.style.background='var(--light)'" onmouseout="this.style.background='var(--white)'">Balancing</a>
-        <a href="#re2-qa" style="font-size:0.82rem; font-weight:600; color:var(--blue); text-decoration:none; padding:6px 14px; border:1px solid var(--rule); border-radius:20px; background:var(--white); transition:background 0.15s;" onmouseover="this.style.background='var(--light)'" onmouseout="this.style.background='var(--white)'">Quality Assurance</a>
+        <span class="jump-link" data-target="re2-scenarios" style="font-size:0.82rem; font-weight:600; color:var(--blue); cursor:pointer; padding:6px 14px; border:1px solid var(--rule); border-radius:20px; background:var(--white);">Scenario Design</span>
+        <span class="jump-link" data-target="re2-balancing" style="font-size:0.82rem; font-weight:600; color:var(--blue); cursor:pointer; padding:6px 14px; border:1px solid var(--rule); border-radius:20px; background:var(--white);">Balancing</span>
+        <span class="jump-link" data-target="re2-qa" style="font-size:0.82rem; font-weight:600; color:var(--blue); cursor:pointer; padding:6px 14px; border:1px solid var(--rule); border-radius:20px; background:var(--white);">Quality Assurance</span>
       </div>
 
       <h2 id="re2-scenarios">Scenario Design</h2>
@@ -1569,7 +1650,7 @@
 <!-- Floating home + top buttons -->
 <div class="float-buttons">
   <button class="float-btn" id="btn-top" title="Back to top">↑</button>
-  <button class="float-btn" id="btn-home" title="Home">⌂</button>
+  <button class="float-btn" data-page="home" title="Home">⌂</button>
 </div>
 
 <script>
@@ -1610,22 +1691,30 @@
       });
     });
 
-    // Floating buttons
+    // Wire up jump links (scroll to section within page)
+    document.querySelectorAll('.jump-link').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        var target = document.getElementById(this.getAttribute('data-target'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Floating top button
     document.getElementById('btn-top').addEventListener('click', function() {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    document.getElementById('btn-home').addEventListener('click', function() {
-      showPage('home');
-    });
 
     // Load correct page from URL hash if present
+    // Use a separate prefix 'p-' so section anchors don't interfere
     var hash = window.location.hash.replace('#', '');
     var validPages = ['home', 'research', 'production', 're2', 'col', 'osakabe', 'contact'];
     if (hash && validPages.indexOf(hash) !== -1) {
       showPage(hash, false);
     } else {
-      // Set initial history state
-      history.replaceState({ page: 'home' }, '', '#home');
+      history.replaceState({ page: 'home' }, '', window.location.pathname);
     }
   });
 </script>
